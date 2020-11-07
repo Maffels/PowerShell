@@ -1,4 +1,5 @@
 Get-PhysicalDisk -CanPool $True | Format-Table -Property FriendlyName, OperationalStatus, Size, MediaType 
+$storage = Get-StorageSubSystem
 New-StoragePool -StorageSubSystemId $storage.UniqueId -FriendlyName TieredPool -PhysicalDisks (Get-PhysicalDisk -CanPool $true)
 New-StorageTier -StoragePoolFriendlyName "TieredPool" -FriendlyName "HDD_Tier" -ResiliencySettingName "Simple" -NumberOfColumns 2 -MediaType HDD
 New-StorageTier -StoragePoolFriendlyName "TieredPool" -FriendlyName "SSD_Tier" -ResiliencySettingName "Simple" -NumberOfColumns 1 -MediaType SSD
