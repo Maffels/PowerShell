@@ -4,4 +4,4 @@ New-StoragePool -StorageSubSystemId $storage.UniqueId -FriendlyName TieredPool -
 New-StorageTier -StoragePoolFriendlyName "TieredPool" -FriendlyName "HDD_Tier" -ResiliencySettingName "Simple" -NumberOfColumns 2 -MediaType HDD
 New-StorageTier -StoragePoolFriendlyName "TieredPool" -FriendlyName "SSD_Tier" -ResiliencySettingName "Simple" -NumberOfColumns 1 -MediaType SSD
 Get-StoragePool TieredPool
-Get-StoragePool TieredPool | New-VirtualDisk -FriendlyName TieredStorage -StorageTiers $SSD, $HDD -StorageTierSizes 100GB, 1700GB -ResiliencySettingName Simple -WriteCacheSize 10GB
+Get-StoragePool TieredPool | New-VirtualDisk -FriendlyName TieredStorage -StorageTiers $SSD_Tier, $HDD_Tier -StorageTierSizes 100GB, 1700GB -ResiliencySettingName Simple -WriteCacheSize 10GB
