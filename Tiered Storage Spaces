@@ -1,7 +1,7 @@
 Get-PhysicalDisk -CanPool $True | Format-Table -Property FriendlyName, OperationalStatus, Size, MediaType 
 $storage = Get-StorageSubSystem
 New-StoragePool -StorageSubSystemId $storage.UniqueId -FriendlyName TieredPool -PhysicalDisks (Get-PhysicalDisk -CanPool $true)
-New-StorageTier -StoragePoolFriendlyName "TieredPool" -FriendlyName "HDD_Tier" -ResiliencySettingName "Simple" -NumberOfColumns 2 -MediaType HDD
-New-StorageTier -StoragePoolFriendlyName "TieredPool" -FriendlyName "SSD_Tier" -ResiliencySettingName "Simple" -NumberOfColumns 1 -MediaType SSD
+$hdd = New-StorageTier -StoragePoolFriendlyName "TieredPool" -FriendlyName "HDD_Tier" -ResiliencySettingName "Simple" -NumberOfColumns 2 -MediaType HDD
+$ssd = New-StorageTier -StoragePoolFriendlyName "TieredPool" -FriendlyName "SSD_Tier" -ResiliencySettingName "Simple" -NumberOfColumns 1 -MediaType SSD
 Get-StoragePool TieredPool
-Get-StoragePool TieredPool | New-VirtualDisk -FriendlyName TieredStorage -StorageTiers $SSD_Tier, $HDD_Tier -StorageTierSizes 100GB, 1700GB -ResiliencySettingName Simple -WriteCacheSize 10GB
+Get-StoragePool TieredPool | New-VirtualDisk -FriendlyName TieredStorage -StorageTiers $ssd, $hdd -StorageTierSizes 100GB, 1700GB -ResiliencySettingName Simple -WriteCacheSize 10GB
